@@ -1,4 +1,4 @@
-#include <mem.h>
+#include <string.h>
 #include "bt-receive/converter.h"
 
 charMorse convert_to_morse(char c){

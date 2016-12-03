@@ -1,3 +1,4 @@
 bin/
 tags
 .*.sw[a-zA-Z]
+obj/

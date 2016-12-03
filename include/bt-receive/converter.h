@@ -9,6 +9,6 @@
  * @param c  The character to convert.
  * @return   The converted character.
  */
-static charMorse convert_to_morse( char c );
+charMorse convert_to_morse( char c );
 
 #endif // RPI_BLUETOOTH_MORSE_CODE_CONVERTER_H
