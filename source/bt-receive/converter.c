@@ -1,6 +1,6 @@
 #include <mem.h>
-#include '../../include/rpi3/morse_char.h';
-#include "../../include/rpi3/morse_char.h"
+#include "bt-receive/converter.h"
+#include "bt-receive/morse_char.h"
 
 charMorse convert_to_morse(char c){
     charMorse value;
