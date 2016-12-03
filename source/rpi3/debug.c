@@ -5,18 +5,33 @@
 
 uint32_t idiv(const uint32_t numerator, const uint32_t denominator)
 {
-    uint32_t result = 0;
-    uint32_t remain = numerator;
-    while( remain >= numerator ) {
-        result++;
-        remain -= denominator;
+    // Get rid of the impossible case
+    if( y == 0 ) {
+        return 0;
+    }
+
+    uint32_t a, b, c, result, count;
+    result = 0;
+    c = x;
+
+    // Use long division (same concept in binary as in decimal)
+    while( c >= y ) {
+        a = c >> 1;        // Shift over to next value
+        b = y;
+        count = 1;
+        while( a >= b ) {  // "Drop down" values from the numerator
+            b <<= 1;
+            count <<= 1;
+        }
+        c -= b;
+        result += count;   // Add by the relative amount of loops
     }
     return result;
 }
 
 uint32_t imod(const uint32_t x, const uint32_t n)
 {
-    return ( x - (idiv(x, n) * n ) );
+    return ( x - (idiv(x, n) * n) );
 }
 
 char digit_to_char(char ch)
