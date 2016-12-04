@@ -14,7 +14,7 @@
 struct morseStruct {
     char character;
     char convStr[MORSE_MAX_LEN + 1];
-    uint16_t code;
+    uint32_t code;
 };
 
 typedef struct morseStruct * Morse;
