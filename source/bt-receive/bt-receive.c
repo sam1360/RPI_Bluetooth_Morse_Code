@@ -5,7 +5,7 @@
 #include <bluetooth/rfcomm.h>
 #include "bt-receive/converter.h"
 
-int main(int argc, char **argv)
+int main(void)
 {
     struct sockaddr_rc loc_addr = { 0 }, rem_addr = { 0 };
     char buf[1024] = { 0 };
