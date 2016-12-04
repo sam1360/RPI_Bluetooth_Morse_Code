@@ -8,8 +8,8 @@
 
 #include <stdint.h>
 
-// No Morse characters with greater than 5 components exist
-#define MORSE_MAX_LEN 5
+// No Morse characters with greater than 7 components exist
+#define MORSE_MAX_LEN 7
 
 struct morseStruct {
     char character;
