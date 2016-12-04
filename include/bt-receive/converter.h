@@ -13,7 +13,9 @@ size_t get_code_index( char c );
 
 /**
  * Builds the set of Morse codes supported by the system.
+ *
+ * @param codes  The table to create.
  */
-Morse * build_code_table(void);
+void build_code_table( Morse * codes );
 
 #endif // RPI_BLUETOOTH_MORSE_CODE_CONVERTER_H

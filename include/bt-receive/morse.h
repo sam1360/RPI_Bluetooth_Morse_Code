@@ -11,6 +11,9 @@
 // No Morse characters with greater than 7 components exist
 #define MORSE_MAX_LEN 7
 
+// Number of codes available
+#define NUM_CODES 37
+
 struct morseStruct {
     char character;
     char convStr[MORSE_MAX_LEN + 1];

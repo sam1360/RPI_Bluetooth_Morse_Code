@@ -12,11 +12,10 @@ static Morse build_morse(  const char c, const char * convStr, uint32_t code ) {
     value->character = c;
     value->code = code;
     strncpy( value->convStr, convStr, MORSE_MAX_LEN + 1 );
+    return value;
 }
 
-Morse * build_code_table(void) {
-    Morse[NUM_CODES] code_table = {0};
-
+void build_code_table( Morse * codes ) {
     codes[0]  = build_morse( 'a', "*-", 0x17 ); //10111
     codes[1]  = build_morse( 'b', "-***", 0x1D5 ); // 111010101
     codes[2]  = build_morse( 'c', "-*-*", 0x75D ); // 11101011101
@@ -54,8 +53,6 @@ Morse * build_code_table(void) {
     codes[34] = build_morse( '9', "----*", 0x1DDDD ); // 11101110111011101
     codes[35] = build_morse( '0', "-----", 0x77777 ); // 1110111011101110111
     codes[36] = build_morse( ' ', "", 0x0 );
-
-    return code_table;
 }
 
 size_t get_code_index(char c) {
@@ -236,6 +233,6 @@ size_t get_code_index(char c) {
             break;
     }
 
-    return value;
+    return result;
 }
 
