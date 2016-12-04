@@ -15,14 +15,14 @@ all: receive send
 
 
 receive: converter
-	$(CC) $(CFLAGS) $(SRCDIR)$(RECEIVE)bt-receive.c $(OBJDIR)converter.o -o $(TARGETPATH)receive
+	$(CC) $(CFLAGS) $(SRCDIR)$(RECEIVE)bt-receive.c $(OBJDIR)converter.o -o $(TARGETPATH)receive -lbluetooth
 
 converter:
 	$(CC) $(CFLAGS) $(SRCDIR)$(RECEIVE)converter.c -c -o $(OBJDIR)converter.o
 
 
 send:
-	$(CC) $(CFLAGS) $(SRCDIR)$(SEND)bt-send.c -o $(TARGETPATH)send
+	$(CC) $(CFLAGS) $(SRCDIR)$(SEND)bt-send.c -o $(TARGETPATH)send -lbluetooth
 
 
 .PHONY: clean
