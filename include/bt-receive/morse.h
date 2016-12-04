@@ -5,12 +5,19 @@
 #ifndef RPI_BLUETOOTH_MORSE_CODE_MORSE_H
 #define RPI_BLUETOOTH_MORSE_CODE_MORSE_H
 
+
+#include <stdint.h>
+
 // No Morse characters with greater than 5 components exist
 #define MORSE_MAX_LEN 5
 
-typedef struct {
+struct morseStruct {
     char character;
-    char morse[MORSE_MAX_LEN + 1];
-} charMorse;
+    char convStr[MORSE_MAX_LEN + 1];
+    uint16_t code;
+};
+
+typedef struct morseStruct * Morse;
+
 #endif //RPI_BLUETOOTH_MORSE_CODE_MORSE_H
 
