@@ -15,7 +15,15 @@ static Morse build_morse(  const char c, const char * convStr, uint32_t code ) {
     return value;
 }
 
-void build_code_table( Morse * codes ) {
+Morse * build_code_table(void) {
+    Morse * codes = malloc( sizeof(Morse *) * NUM_CODES );
+    if( codes == NULL ) {
+        fprintf(stderr, "Could not allocate enough space to build the table!\n" );
+        exit(-1);
+    }
+
+    // dot = * = 1
+    // dash = - = 111
     codes[0]  = build_morse( 'a', "*-", 0x17 ); //10111
     codes[1]  = build_morse( 'b', "-***", 0x1D5 ); // 111010101
     codes[2]  = build_morse( 'c', "-*-*", 0x75D ); // 11101011101
@@ -52,11 +60,13 @@ void build_code_table( Morse * codes ) {
     codes[33] = build_morse( '8', "---**", 0x7775 ); // 111011101110101
     codes[34] = build_morse( '9', "----*", 0x1DDDD ); // 11101110111011101
     codes[35] = build_morse( '0', "-----", 0x77777 ); // 1110111011101110111
-    codes[36] = build_morse( ' ', "", 0x0 );
+    codes[36] = build_morse( ' ', " ", 0x0 );
+
+    return codes;
 }
 
 size_t get_code_index(char c) {
-    size_t result = 0;
+    size_t result = 36;
     switch(c){
         case 'a':
         case 'A':
@@ -236,3 +246,42 @@ size_t get_code_index(char c) {
     return result;
 }
 
+Morse * get_codes_from_input( const char * buffer, Morse * codes ) {
+    size_t n = strlen(buffer);
+    Morse * converted = malloc( sizeof(Morse) * n );
+    if( converted == NULL ) {
+        fprintf(stderr, "Could not allocate enough space to build the table!\n" );
+        exit(-1);
+    }
+    for( size_t i = 0; i < n; i++ ) { // index into the code table
+        converted[i] = codes[ get_code_index(buffer[i]) ];
+        fprintf(stdout, "%s", converted[i]->convStr );
+    }
+    return converted;
+}
+
+void destroy_code_table( Morse * codes ) {
+    if( codes == NULL ) {
+        return;
+    }
+    for( size_t i = 0; i < NUM_CODES; i++ ) {
+        if( codes[i] != 0 ) {
+            free( codes[i] );
+            codes[i] = 0;
+        }
+    }
+    free( codes );
+}
+
+void destroy_converted_table( Morse * converted, size_t size ) {
+    if( converted == NULL ) {
+        return;
+    }
+    for( size_t i = 0; i < size; i++ ) {
+        if( converted[i] != 0 ) {
+            free( converted[i] );
+            converted[i] = 0;
+        }
+    }
+    free( converted );
+}
