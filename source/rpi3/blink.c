@@ -41,3 +41,13 @@ void blink_for(uint32_t duration)
 
     timer_delay_ms(duration);
 }
+
+void blink_on()
+{
+    gpio[GPSET0] |= 1 << 24;
+}
+
+void blink_off()
+{
+    gpio[GPCLR0] |= 1 << 24;
+}
