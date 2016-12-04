@@ -25,10 +25,11 @@ Morse * build_code_table(void);
  * and time complexity overhead.
  *
  * @param buffer  The input buffer to convert.
+ * @param size    The size of the input buffer.
  * @param codes   The table of static code values to use.
  * @return        A list of codes corresponding to the buffer.
  */
-Morse * get_codes_from_input( const char * buffer, Morse * codes );
+Morse * get_codes_from_input( const char * buffer, size_t size, Morse * codes );
 
 /**
  * Destroys the code table.

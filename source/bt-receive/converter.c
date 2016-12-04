@@ -246,16 +246,16 @@ size_t get_code_index(char c) {
     return result;
 }
 
-Morse * get_codes_from_input( const char * buffer, Morse * codes ) {
-    size_t n = strlen(buffer);
-    Morse * converted = malloc( sizeof(Morse) * n );
+Morse * get_codes_from_input( const char * buffer, size_t size, Morse * codes ) {
+    Morse * converted = malloc( sizeof(Morse) * size );
     if( converted == NULL ) {
         fprintf(stderr, "Could not allocate enough space to build the table!\n" );
         exit(-1);
     }
-    for( size_t i = 0; i < n; i++ ) { // index into the code table
+    for( size_t i = 0; i < size; i++ ) { // index into the code table
         converted[i] = codes[ get_code_index(buffer[i]) ];
-        fprintf(stdout, "%s", converted[i]->convStr );
+        fprintf( stdout, "%s", converted[i]->convStr );
+        fprintf( stdout, " " );
     }
     return converted;
 }
@@ -278,10 +278,7 @@ void destroy_converted_table( Morse * converted, size_t size ) {
         return;
     }
     for( size_t i = 0; i < size; i++ ) {
-        if( converted[i] != 0 ) {
-            free( converted[i] );
-            converted[i] = 0;
-        }
+        converted[i] = 0;
     }
     free( converted );
 }
