@@ -28,3 +28,16 @@ void blink_code(uint32_t err)
     // second in blink_once().
     timer_delay_ms(4500);
 }
+
+void blink_for(uint32_t duration)
+{
+    // Turn on GPIO 24
+    gpio[GPSET0] |= 1 << 24;
+
+    timer_delay_ms(duration);
+
+    // Turn off GPIO 24
+    gpio[GPCLR0] |= 1 << 24;
+
+    timer_delay_ms(duration);
+}

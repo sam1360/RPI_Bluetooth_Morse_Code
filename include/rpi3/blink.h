@@ -9,4 +9,6 @@ void blink_once();
 
 void blink_code(uint32_t err);
 
+void blink_for(uint32_t duration);
+
 #endif // RPI3_BLINK_H_
