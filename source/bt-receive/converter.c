@@ -1,193 +1,186 @@
 #include <string.h>
 #include "bt-receive/converter.h"
 
+static void char_to_morse( charMorse * value, const char c, const char ** morse ) {
+    *value.character = c;
+    strncpy( *value.morse, morse, MORSE_MAX_LEN + 1 );
+}
+
 charMorse convert_to_morse(char c){
     charMorse value;
     switch(c){
         case 'a':
         case 'A':
-            value.character = 'a';
-            strncpy(value.morse, "*-", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, 'a', "*-" );
             break;
+
         case 'b':
         case 'B':
-            value.character = 'b';
-            strncpy(value.morse,"-***", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, 'b', "-***" );
             break;
+
         case 'c':
         case 'C':
-            value.character = 'c';
-            strncpy(value.morse, "-*-*", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, 'c', "-*-*" );
             break;
+
         case 'd':
         case 'D':
-            value.character = 'd';
-            strncpy(value.morse, "-**", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, 'd', "-**" );
             break;
+
         case 'e':
         case 'E':
-            value.character = 'e';
-            strncpy(value.morse, "*", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, 'e', "*" );
             break;
+
         case 'f':
         case 'F':
-            value.character = 'f';
-            strncpy(value.morse, "**-*", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, 'f', "**-*" );
             break;
+
         case 'g':
         case 'G':
-            value.character = 'g';
-            strncpy(value.morse, "--*", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, 'g', "--*" );
             break;
+
         case 'h':
         case 'H':
-            value.character = 'f';
-            strncpy(value.morse, "****", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, 'f', "****" );
             break;
+
         case 'i':
         case 'I':
-            value.character = 'i';
-            strncpy(value.morse, "**", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, 'i', "**" );
             break;
+
         case 'j':
         case 'J':
-            value.character = 'j';
-            strncpy(value.morse, "*---", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, 'j', "*---" );
             break;
+
         case 'k':
         case 'K':
-            value.character = 'k';
-            strncpy(value.morse, "-*-", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, 'k', "-*-" );
             break;
+
         case 'l':
         case 'L':
-            value.character = 'l';
-            strncpy(value.morse, "*-**", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, 'l', "*-**" );
             break;
+
         case 'm':
         case 'M':
-            value.character = 'm';
-            strncpy(value.morse, "--", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, 'm', "--" );
             break;
+
         case 'n':
         case 'N':
-            value.character = 'n';
-            strncpy(value.morse, "-*", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, 'n', "-*" );
             break;
+
         case 'o':
         case 'O':
-
-            value.character = 'o';
-            strncpy(value.morse, "---", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, 'o', "---" );
             break;
+
         case 'p':
         case 'P':
-
-            value.character = 'p';
-            strncpy(value.morse, "*--*", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, 'p', "*--*" );
             break;
+
         case 'q':
         case 'Q':
-
-            value.character = 'q';
-            strncpy(value.morse, "--*-", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, 'q', "--*-" );
             break;
+
         case 'r':
         case 'R':
-            value.character = 'r';
-            strncpy(value.morse, "*-*", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, 'r', "*-*" );
             break;
 
         case 's':
         case 'S':
-            value.character = 's';
-            strncpy(value.morse, "***", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, 's', "***" );
             break;
 
         case 't':
         case 'T':
-            value.character = 't';
-            strncpy(value.morse, "-", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, 't', "-" );
             break;
 
         case 'u':
         case 'U':
-            value.character = 'u';
-            strncpy(value.morse, "**-", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, 'u', "**-" );
             break;
 
         case 'v':
         case 'V':
-            value.character = 'v';
-            strncpy(value.morse, "***-", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, 'v', "***-" );
             break;
 
         case 'w':
         case 'W':
-            value.character = 'w';
-            strncpy(value.morse, "*--", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, 'w', "*--" );
             break;
 
         case 'x':
         case 'X':
-            value.character = 'x';
-            strncpy(value.morse, "-**-", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, 'x', "-**-" );
             break;
 
         case 'y':
         case 'Y':
-            value.character = 'y';
-            strncpy(value.morse, "-*--", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, 'y', "-*--" );
             break;
 
         case 'z':
         case 'Z':
-            value.character = 'z';
-            strncpy(value.morse, "--**", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, 'z', "--**" );
             break;
+
         case '1':
-            value.character = '1';
-            strncpy(value.morse, "*----", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, '1', "*----" );
             break;
+
         case '2':
-            value.character = '2';
-            strncpy(value.morse, "**---", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, '2', "**---" );
             break;
+
         case '3':
-            value.character = '3';
-            strncpy(value.morse, "***--", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, '3', "***--" );
             break;
+
         case '4':
-            value.character = '4';
-            strncpy(value.morse, "****-", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, '4', "****-" );
             break;
+
         case '5':
-            value.character = '5';
-            strncpy(value.morse, "*****", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, '5', "*****" );
             break;
+
         case '6':
-            value.character = '6';
-            strncpy(value.morse, "-****", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, '6', "-****" );
             break;
+
         case '7':
-            value.character = '7';
-            strncpy(value.morse, "--***", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, '7', "--***" );
             break;
+
         case '8':
-            value.character = '8';
-            strncpy(value.morse, "---**", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, '8', "---**" );
             break;
+
         case '9':
-            value.character = '9';
-            strncpy(value.morse, "----*", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, '9', "----*" );
             break;
+
         case '0':
-            value.character = '0';
-            strncpy(value.morse, "-----", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, '0', "-----" );
             break;
+
         default:
-            value.character = ' ';
-            strncpy(value.morse, "", MORSE_MAX_LEN + 1);
+            char_to_morse( &value, ' ', "" );
             break;
     }
 
