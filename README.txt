@@ -29,9 +29,27 @@ Table of Contents ==================================================== [TOC00]
 Compilation =========================================================== [COM01]
 
 
-TODO Write This
+This application executes using two separate programs: send and receive.
+Before compiling the code, both the receiving and sending Raspberry Pi 3 must
+install the required libraries with the following command:
 
-sudo apt-get install libbluetooth-dev
+                 sudo apt-get install bluez libbluetooth-dev
+
+Also ensure that Raspbian libraries are updated with
+
+                              sudo apt-get update
+
+Before compiling, also make sure that `gcc` and `make` are installed. Both of
+these programs come with Raspbian out of the box, but the following commands
+can be used to verify this:
+
+                                gcc --version
+                                make --version
+
+Once the presence of `gcc` and `make` are verified, the following command will
+compile both `send` and `receive` into the bin/ directory:
+
+                                     make
 
 
 Hardware Set-up ======================================================= [HSE02]
