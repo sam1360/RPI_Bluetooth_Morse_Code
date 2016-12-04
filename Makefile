@@ -9,7 +9,7 @@ RECEIVE = bt-receive/
 SEND = bt-send/
 
 
-CFLAGS = -ggdb -Wall -Wextra -pedantic -Werror -O2 -I $(INCLUDEDIR)
+CFLAGS = -std=c99 -ggdb -Wall -Wextra -pedantic -Werror -O2 -I $(INCLUDEDIR)
 
 all: receive send
 
