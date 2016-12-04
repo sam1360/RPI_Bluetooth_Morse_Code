@@ -31,6 +31,8 @@ Compilation =========================================================== [COM01]
 
 TODO Write This
 
+sudo apt-get install libbluetooth-dev
+
 
 Hardware Set-up ======================================================= [HSE02]
 
