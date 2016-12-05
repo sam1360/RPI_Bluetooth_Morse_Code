@@ -6,9 +6,12 @@
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/rfcomm.h>
 
+#define MAX_SIZE  500
+
 int main( int argc, char * argv[] )
 {
     const char * usage = "usage: send bt-receive-addr";
+    char buffer[MAX_SIZE];
 
     if( argc != 2  ) {
         fprintf( stderr, "%s\n", usage );
@@ -35,10 +38,13 @@ int main( int argc, char * argv[] )
     status = connect(s, (struct sockaddr *)&addr, sizeof(addr));
     while(1){
         if( status == 0 ) {
-            status = write(s, "hello!", 6);
-	    status = 0;
+            scanf( "%s", buffer );
+            status = write( s, "hello!", MAX_SIZE );
+            status = 0;
         }
-    	if( status < 0 ) perror("uh oh");
+        if( status < 0 ) { 
+            perror("uh oh");
+        }
 
     }
     // send a message
