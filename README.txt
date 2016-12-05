@@ -59,6 +59,14 @@ compile both `send` and `receive` into the bin/ directory:
 
                                      make
 
+If you want to connect to a receiving Raspberry Pi using a different device
+that has access to the BlueZ library, you can compile the `send` program
+individually using the following command:
+
+                                  make send
+
+The device will then be able to send to the Raspberry Pi by running `send`.
+
 
 Hardware Set-up ======================================================= [HSE02]
 
@@ -69,7 +77,25 @@ TODO Write This
 Execution ============================================================= [EXE03]
 
 
-TODO Write This
+This program is split into two parts: `send` and `receive`. `send` allows the
+user to connect to a Raspberry Pi running `receive` with a specified bluetooth
+address, like so:
+
+                             send A1:B2:C3:D4:E5
+
+Before executing the `receive` portion of the program, run `bluetoothctl` and
+enter the following commands in the console:
+
+                               discoverable on
+                                     exit
+
+This allows the computer or Pi running the `send` program to establish the
+connection. Then, run `receive` with the following command:
+
+                                 sudo receive
+
+Then, any program running `send` can send messages to the receiving Pi, which
+will convert the messages to Morse code in the form of electronic impulses.
 
 
 ==============================================================================
