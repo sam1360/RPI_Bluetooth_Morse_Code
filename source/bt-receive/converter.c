@@ -257,6 +257,7 @@ Morse * get_codes_from_input( const char * buffer, size_t size, Morse * codes ) 
         fprintf( stdout, "%s", converted[i]->convStr );
         fprintf( stdout, " " );
     }
+    printf( "\n" );
     return converted;
 }
 

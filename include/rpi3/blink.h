@@ -1,6 +1,8 @@
 #ifndef RPI3_BLINK_H_
 #define RPI3_BLINK_H_
 
+#include <stdint.h>
+
 void blink_once();
 
 void blink_code(uint32_t err);
