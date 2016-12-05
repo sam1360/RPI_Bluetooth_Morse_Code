@@ -39,7 +39,7 @@ int main( int argc, char * argv[] )
     while(1){
         if( status == 0 ) {
             scanf( "%s", buffer );
-            status = write( s, "hello!", MAX_SIZE );
+            status = write( s, buffer, MAX_SIZE );
             status = 0;
         }
         if( status < 0 ) { 
