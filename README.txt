@@ -31,7 +31,7 @@ Compilation =========================================================== [COM01]
 
 This application executes using two separate programs: send and receive.
 Before compiling the code, both the receiving and sending Raspberry Pi 3 must
-install the required libraries with the following command:
+install the required Bluetooth libraries with the following command:
 
                  sudo apt-get install bluez libbluetooth-dev
 
@@ -39,9 +39,17 @@ Also ensure that Raspbian libraries are updated with
 
                               sudo apt-get update
 
-Before compiling, also make sure that `gcc` and `make` are installed. Both of
+In order to utilize GPIO functionality on the Raspberry Pi, the wiringPi
+library is used. WiringPi is not available on apt-get, but can be acquired
+using `git` and the following commands:
+
+                   git clone git://git.drogon.net/wiringPi
+                                 cd wiringPi
+                                   ./build
+
+Before compiling, make sure that `gcc` and `make` are installed. Both of
 these programs come with Raspbian out of the box, but the following commands
-can be used to verify this:
+can be used to verify that they are still there:
 
                                 gcc --version
                                 make --version
