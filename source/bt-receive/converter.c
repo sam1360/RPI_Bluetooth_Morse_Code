@@ -31,7 +31,7 @@ Morse * build_code_table(void) {
     codes[4]  = build_morse( 'e', "*", 0x1 ); // 1
     codes[5]  = build_morse( 'f', "**-*", 0x15D ); // 101011101
     codes[6]  = build_morse( 'g', "--*", 0x1DD ); // 111011101
-    codes[7]  = build_morse( 'f', "****", 0x55 ); // 1010101
+    codes[7]  = build_morse( 'h', "****", 0x55 ); // 1010101
     codes[8]  = build_morse( 'i', "**", 0x5 ); // 101
     codes[9]  = build_morse( 'j', "*---", 0x1777 ); // 1011101110111
     codes[10] = build_morse( 'k', "-*-", 0x1D7); // 111010111
