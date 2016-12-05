@@ -71,11 +71,22 @@ The device will then be able to send to the Raspberry Pi by running `send`.
 Hardware Set-up ======================================================= [HSE02]
 
 
-TODO Write This
+The electronic Morse code pulses are sent through GPIO pin 17, so to use an
+LED with the program, connect a grounded LED to GPIO pin 17 with a jumper
+cable.
+
+It is possible to use the UART with the program.
 
 
 Execution ============================================================= [EXE03]
 
+Before executing this program, be sure to specify the Bluetooth connection to
+drive through the Mini-UART in Raspbian's config.txt. Also make sure to set
+the core frequency to 250. The following options in config.txt will accomplish
+this:
+
+                           dtoverlay=pi-miniuart-bt
+                                core_freq=250
 
 This program is split into two parts: `send` and `receive`. `send` allows the
 user to connect to a Raspberry Pi running `receive` with a specified bluetooth
