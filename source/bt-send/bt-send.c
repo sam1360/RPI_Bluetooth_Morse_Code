@@ -1,15 +1,27 @@
-
+#include <stdlib.h>
+#include <string.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/socket.h>
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/rfcomm.h>
 
-int main(void)
+int main( int argc, char * argv[] )
 {
+    const char * usage = "usage: send bt-receive-addr";
+
+    if( argc != 2  ) {
+        fprintf( stderr, "%s\n", usage );
+        return EXIT_FAILURE;
+    }
+    else if( strlen(argv[1]) != 17 ) {
+        fprintf( stderr, "Invalid Bluetooth address: %s.\n", argv[1] );
+        return EXIT_FAILURE;
+    }
+
     struct sockaddr_rc addr = { 0 };
     int s, status;
-    char dest[18] = "B8:27:EB:CD:5E:64";
+    char * dest = argv[1];
 
     // allocate a socket
     s = socket(AF_BLUETOOTH, SOCK_STREAM, BTPROTO_RFCOMM);
@@ -30,5 +42,5 @@ int main(void)
     if( status < 0 ) perror("uh oh");
 
     close(s);
-    return 0;
+    return EXIT_SUCCESS;
 }
