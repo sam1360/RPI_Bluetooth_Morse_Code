@@ -51,7 +51,7 @@ void blink_signal_from_input( const char * buffer, Morse * codes ) {
         while( ( converted[i]->code >> count ) != 1 ) {
             count++; // spin until we find the most significant 1
         }
-        for( size_t j = count; j == 0; j-- ) { // count down to lsb
+        for( int j = count; j >= 0; j-- ) { // count down to lsb
             blink_based_on_bit( converted[i]->code, j );
         }
         blink_off(); // blink off for 3 ticks at the end of the letter
