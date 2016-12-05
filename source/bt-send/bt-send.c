@@ -33,13 +33,16 @@ int main( int argc, char * argv[] )
 
     // connect to server
     status = connect(s, (struct sockaddr *)&addr, sizeof(addr));
+    while(1){
+        if( status == 0 ) {
+            status = write(s, "hello!", 6);
+	    status = 0;
+        }
+    	if( status < 0 ) perror("uh oh");
 
-    // send a message
-    if( status == 0 ) {
-        status = write(s, "hello!", 6);
     }
+    // send a message
 
-    if( status < 0 ) perror("uh oh");
 
     close(s);
     return EXIT_SUCCESS;
