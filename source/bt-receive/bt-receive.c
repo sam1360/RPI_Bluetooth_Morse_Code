@@ -40,14 +40,17 @@ int main(void)
 
     ba2str( &rem_addr.rc_bdaddr, buf );
     fprintf(stderr, "Accepted connection from %s\n", buf);
-    memset(buf, 0, sizeof(buf)); // clear buffer for input
 
-    // read data from the client
-    bytes_read = read(client, buf, sizeof(buf));
-    if( bytes_read > 0 ) {
-        printf("Received [%s]\n", buf);
-        printf("Morse code translation:\n");
-        blink_signal_from_input( buf, codes );
+    while(1) {
+        memset(buf, 0, sizeof(buf)); // clear buffer for input
+
+        // read data from the client
+        bytes_read = read(client, buf, sizeof(buf));
+        if( bytes_read > 0 ) {
+            printf("Received [%s]\n", buf);
+            printf("Morse code translation:\n");
+            blink_signal_from_input( buf, codes );
+        }
     }
 
     // close connection
