@@ -38,12 +38,12 @@ int main( int argc, char * argv[] )
     status = connect(s, (struct sockaddr *)&addr, sizeof(addr));
     while(1){
         if( status == 0 ) {
-            scanf( "%s", buffer );
+            fgets(buffer, MAX_SIZE, stdin);
             status = write( s, buffer, MAX_SIZE );
             status = 0;
         }
         if( status < 0 ) { 
-            perror("uh oh");
+            perror("Error with connection: ");
         }
 
     }
