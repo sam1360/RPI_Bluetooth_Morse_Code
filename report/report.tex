@@ -11,7 +11,7 @@
 \label{sec:abstract}
 
 
-This project's goal was to develop a system to send messages to a Raspberry Pi~3 (RPi3) over Bluetooth and translate them to Morse~code.
+This project's goal was to develop a system to send messages to a Raspberry Pi~3 (RPi3) over Bluetooth via the mini uart and then translate them to Morse~code.
 The translated message is then transmitted over the RPi3's~GPIO pins to produce a Morse~code message conforming to international Morse~code standards.
 In order to accomplish this, two separate programs were created: one program to send the message (capable of being compiled and run on any device with BlueZ installed), and the other to receive the message on the RPi3.
 Functions used for each discrete step were developed in separate files for reusability.
@@ -36,6 +36,24 @@ In the end, the system was fully-functional, able to deliver messages through Bl
 \subsection{Morse Code \& Bluetooth Configuration}
 \label{sub:morse_code_&_bluetooth_configuration}
 
+Morse code was developed by Samuel F.B. Morse, Joseph Henry, and Alfred Vail developed morse code starting in 1836.
+The first time Morse was used it worked by making indents on a strip of paper when the machine received electric current.
+Morse had intended to only support numbers and then look each word up via a dictionary that mapped each number to a work.
+Shortly after that was introduced however Alfred Vail expanded this to include both special characters and letters.
+This made Morse code take off due to the fact that it was much easeir to translate.
+Vail used frequency analysis to assign dots and dashes to the letters.
+
+The Morse code specifies that a dot "." is a one unit, a dash "-" is a 3 units, in between each dot and dash is a 1 unit break, the space at the end of each letter is 3 units, and the break at the end of each word is 7 units.
+The reason for specifying the time length as units is due to the fact that the breaks do no have and specified length, its relative to the speed at which the operator can send and receive messages.
+
+
+The bluetooth connection is done using RFCOMM communication protocol.
+RFCOMM ends up as a similar connection to that of a serial connection.
+This made it easy to transmit and receive streams of data over the Raspberry Pi 3's mini UART.
+The other reason for the selection of RFCOMM was the relative ease of use that the protocol provided, meaning that it didn't devour to much development time.
+Within the receiving Raspberry Pi 3 bluetoothctl must turn discoverable on, so that the sending Pi can transmit data to it.
+THe port that the pi recieves on is the first one of the current open connection.
+
 
 % TODO MORSE CODE & Bluetooth Configuration
 % The title of this section might change later
@@ -43,6 +61,7 @@ In the end, the system was fully-functional, able to deliver messages through Bl
 
 \subsection{Program Design}
 \label{sub:program_design}
+
 
 
 % TODO Program Design
