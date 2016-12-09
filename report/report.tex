@@ -30,7 +30,38 @@ In the end, the system was fully-functional, able to deliver messages through Bl
 \label{sub:hardware_configuration}
 
 
-% TODO Hardware Configuration
+Since realistically implementing a Bluetooth-based system on the RPi3 requires OS support, a direct interface to the hardware was not possible.
+Attempts to do so violate the OS's security and segmentation protocols.
+As such, in order to access the GPIO~pins for the duration of the lab, a separate, third-party library was necessary.
+After some searching, the \href{http://wiringpi.com/}{wiringPi} library was discovered, providing precisely the interface to the GPIO that was needed.
+
+
+The wiringPi library uses an alternative mapping of GPIO~pins.
+For the purposes of this project, wiringPi pin~0 was chosen, which corresponds to GPIO~17 or physical pin~11 per the documentation \href{http://wiringpi.com/pins/}{found here}.
+This means that, in order to wire an LED through the program, GPIO~17 must be wired to (alongside GPIO~15, acting as a ground).
+
+
+To allow the receiving RPi3 to simultaneously use a serial UART connection and a Bluetooth connection, the Bluetooth must be rewired to the RPi3's mini-UART.
+The method to accomplish this can vary by OS, but in this particular project (which uses Raspbian Jessie) that is accomplished by adding the line \code{dtoverlay=pi-miniuart-bt} to the config.txt file at the root directory.
+In doing so, the RPi3 can be booted --- and the program therefore run --- via the UART console.
+
+
+With the receiving RPi3 utilizing the previously determined parameters (output on GPIO~17, ground on GPIO~15, and UART connections), the hardware layout of the RPi3 will be the same as in Figure~\ref{fig:receive-gpio}.
+
+
+% TODO Get image to put here
+\begin{figure}
+    \centering
+    \includegraphics[width=1\textwidth]{img/receive-gpio.png}
+    \caption{The GPIO pin layout on the receiving RPi3.}
+    \label{fig:receive-gpio}
+\end{figure}
+
+
+Note that the hardware of the sending device has not been discussed yet.
+This is because only the receiving RPi3 has functionality tied directly to the Raspberry Pi hardware.
+Theoretically, following complete development, the code to send messages \emph{to} the RPi3 can be compiled and run on any device that supports the BlueZ API.
+Although, for the purposes of this lab, another RPi3 will be used as the sending device, the portability of the code means that the hardware configuration the code will run on is almost entirely unknowable beyond the presence of a few APIs.
 
 
 \subsection{Morse Code \& Bluetooth Configuration}
