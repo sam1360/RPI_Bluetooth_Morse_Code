@@ -50,7 +50,7 @@ With the receiving RPi3 utilizing the previously determined parameters (output o
 
 
 % TODO Get image to put here
-\begin{figure}
+\begin{figure}[ht]
     \centering
     \includegraphics[width=1\textwidth]{img/receive-gpio.png}
     \caption{The GPIO pin layout on the receiving RPi3.}
@@ -77,6 +77,50 @@ Although, for the purposes of this lab, another RPi3 will be used as the sending
 
 
 % TODO Program Design
+
+% VERY BASIC OUTLINE
+% Talk about higher-level execution; execution of bt-send and bt-receive on different devices
+% High-level UML Diagram (what the program looks like at a higher level)
+% Discuss bt-send
+%     RFCOMM connection establish
+%     Receive and package user data
+% Discuss bt-receive
+%     RFCOMM connection establish
+%     State Diagram (what we are trying to accomplish)
+%     Describe Lookup Table system (create table then convert characters of input into array of references to table)
+%     Describe mapping bits to ticks ON and OFF per Morse code spec in \ref{sub:morse_code_&_bluetooth_configuration}; refer to State Diagram
+%     Algorithm sketch for blink_code
+%     Algorithm for blink_code
+
+
+As has been stated in Subsection~\ref{sub:hardware_configuration}, the system operates not in a single RPi3, but in two different devices.
+One of these devices specifies a MAC address field, then attempts to connect to the given MAC address and, if successful, sends packets of user input to the connected device.
+The other device (the receiving RPi3) accepts a connection with a sending device, takes and decodes packets of user input, and turns it into blinkable Morse~code.
+It is natural to split up both subsystems, then, and compile them separately.
+This separation is reflected in the higher-level UML diagram for the system in Figure~\ref{fig:bt-morse-uml}, which details the soft and physical architecture of the system.
+
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics{img/bt-morse-uml.png}
+    \caption{The high-level UML diagram for the project.}
+    \label{fig:bt-morse-uml}
+\end{figure}
+
+
+Through Figure~\ref{fig:bt-morse-uml}, it is clear that although the systems are intertwined in execution, they \emph{are} separate programs.
+
+
+% Hmm, maybe put this in its own section?
+The sending component can be handled by a \code{bt-send.c}.
+
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics{img/bt-morse-state-diagram.png}
+    \caption{A state diagram for the program. Note the resemblance to the Morse code spec from Subsection~\ref{sub:morse_code_&_bluetooth_configuration}.}
+    \label{fig:bt-morse-state-diagram}
+\end{figure}
 
 
 \begin{algorithm}[ht]
