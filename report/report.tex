@@ -48,6 +48,38 @@ In the end, the system was fully-functional, able to deliver messages through Bl
 % TODO Program Design
 
 
+\begin{algorithm}[ht]
+    \begin{algorithmic}[l]
+        \Procedure{blink\_signal\_from\_input}{char *buffer, Morse *codes}
+        \State $n \gets$ \code{length(buffer)}
+        \State $\code{converted} \gets$ \code{get\_codes\_from\_input( buffer, $n$, codes )}
+        \For{$ i \gets 0 \text{ to } n$}
+            \State $\text{count} \gets 0$
+            \If{$ \code{converted[i].code} = 0 $}
+                \State delay 4 ticks
+                \State continue to next loop
+            \EndIf
+            \While{$ \code{converted[i].code} \brshift \text{count} \neq 1 $}
+                \State $\text{count} \gets \text{count} + 1$
+            \EndWhile
+            \For{$ j \gets \text{count to } 0 $}
+                \If{the jth bit of \code{converted[i].code} is 1}
+                    \State blink on
+                \Else
+                    \State blink off
+                \EndIf
+                \State delay 1 tick
+            \EndFor
+            \State blink off
+            \State delay 3 ticks
+        \EndFor
+        \EndProcedure
+    \end{algorithmic}
+    \caption{Pseudocode for converting the input to a signal through GPIO.}
+    \label{alg:blink_signal_from_input}
+\end{algorithm}
+
+
 \section{Results and Analysis}
 \label{sec:results_and_analysis}
 
