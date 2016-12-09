@@ -33,11 +33,13 @@ In the end, the system was fully-functional, able to deliver messages through Bl
 Since realistically implementing a Bluetooth-based system on the RPi3 requires OS support, a direct interface to the hardware was not possible.
 Attempts to do so violate the OS's security and segmentation protocols.
 As such, in order to access the GPIO~pins for the duration of the lab, a separate, third-party library was necessary.
-After some searching, the \href{http://wiringpi.com/}{wiringPi} library was discovered, providing precisely the interface to the GPIO that was needed.
+% After some searching, the \href{http://wiringpi.com/}{wiringPi} library was discovered, providing precisely the interface to the GPIO that was needed.
+After some searching, the wiringPi library was discovered, providing precisely the interface to the GPIO that was needed.
 
 
 The wiringPi library uses an alternative mapping of GPIO~pins.
-For the purposes of this project, wiringPi pin~0 was chosen, which corresponds to GPIO~17 or physical pin~11 per the documentation \href{http://wiringpi.com/pins/}{found here}.
+% For the purposes of this project, wiringPi pin~0 was chosen, which corresponds to GPIO~17 or physical pin~11 per the documentation \href{http://wiringpi.com/pins/}{found here}.
+For the purposes of this project, wiringPi pin~0 was chosen, which corresponds to GPIO~17 or physical pin~11 per the documentation.
 This means that, in order to wire an LED through the program, GPIO~17 must be wired to (alongside GPIO~15, acting as a ground).
 
 
@@ -105,8 +107,8 @@ THe port that the pi recieves on is the first one of the current open connection
 %     Receive and package user data
 % Discuss bt-receive
 %     RFCOMM connection establish
-%     State Diagram (what we are trying to accomplish)
 %     Describe Lookup Table system (create table then convert characters of input into array of references to table)
+%     State Diagram (what we are trying to accomplish)
 %     Describe mapping bits to ticks ON and OFF per Morse code spec in \ref{sub:morse_code_&_bluetooth_configuration}; refer to State Diagram
 %     Algorithm sketch for blink_code
 %     Algorithm for blink_code
@@ -146,14 +148,66 @@ Once the sending device establishes the connection, it should be enough to loop 
 
 
 % bt-receive is considerably more dense
+The receiving component can likewise be handled by a \code{bt-receive.c} file.
+Because of the nature of this program, considerably more work must be done for receiving.
+Like with the program sending the information, the receiving device must prepare itself for the RFCOMM connection.
+The program should bind the local socket to the first available Bluetooth adapter and then accept one connection from a sending device before running.
+Once this is done, the program should loop until it receives input and then output the results.
+
+
+\code{bt-receive.c} is also where the wiringPi library, mentioned in Subsection~\ref{sub:hardware_configuration}, must be initialized.
+As stated, wiringPi Pin~0 must be configured to output.
+
+
+After wiringPi is configured, it is necessary to finally address how \code{bt-receive.c} will translate and encode input into Morse~code.
+To do so, separate modules for conversion and blinking must be developed.
+
+
+Morse~code is an international communication standard that has been around for 180~years as of the time of writing.
+As such, there is little reason for the standard to change.
+The invariability of Morse~code's design can be taken into consideration in program design.
+Rather than manually convert each individual letter into Morse~code, it is much more efficient to pre-allocate a table of the already-established Morse~code values and index into that table.
+For the conversion, a struct can be defined which contains a Morse~code string and the corresponding ASCII value.
+Then, during the program initialization, a table of pointers to structs of this format can be created.
+Using this, each character in the input can be mapped to one of the references in the table, allowing the input to be completely converted without issue.
+This process of mapping is illustrated in Algorithm~\ref{alg:get_codes_from_input}, which describes the function responsible for the conversion.
+
+
+\begin{algorithm}[ht]
+    \begin{algorithmic}[l]
+        \Procedure{get\_codes\_from\_input}{char *buffer, size\_t $n$, Morse *codes}
+            \State $\code{converted} \gets \text{ allocated space for n codes}$
+            \For{$ i \gets 0 \text{ to } n $}
+                \State $\code{index} \gets \code{get\_codes\_index( buffer[i] )}$
+                \State $\code{converted[i]} \gets \code{codes[index]}$
+                \State print value of $\code{converted[i].convStr}$
+            \EndFor
+            \State print a newline
+            \State \Return \code{converted}
+        \EndProcedure
+    \end{algorithmic}
+    \caption{Pseudocode for mapping to the codes table.}
+    \label{alg:get_codes_from_input}
+\end{algorithm}
+
+
+All characters in the input can be converted individually to Morse~code signals, which consists of dots and dashes (or ``dits'' and ``dahs'').
+Refer back to the description of how Morse~code is timed in Subsection~\ref{sub:morse_code_&_bluetooth_configuration}.
+Each dot is 1 time unit on and each dash is 3 time units on.
+Between dots and dashes there is 1 time unit off, between letters there are 3 time units off, and between words there are 7 time units off.
+This gives us 5 possible states for the signal to be in: 1 tick on, 3 ticks on, 1 tick off, 3 ticks off, and 7 ticks off.
+If we represent the next portion of the Morse~code-translated input as a transition, we arrive at a State machine for translating input to Morse~code signals, as seen in Figure~\ref{fig:bt-morse-state-diagram}.
 
 
 \begin{figure}[ht]
     \centering
     \includegraphics{img/bt-morse-state-diagram.png}
-    \caption{A state diagram for the program. Note similarities with the Morse code spec from Subsection~\ref{sub:morse_code_&_bluetooth_configuration}.}
+    \caption{A state diagram for conversion. Note similarities with the Morse code spec from Subsection~\ref{sub:morse_code_&_bluetooth_configuration}.}
     \label{fig:bt-morse-state-diagram}
 \end{figure}
+
+
+This state machine represents the effective results of the program as it goes from accepting input to translating into Morse to interpreting the translated output.
 
 
 \begin{algorithm}[ht]
