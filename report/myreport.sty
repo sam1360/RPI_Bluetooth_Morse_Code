@@ -12,7 +12,6 @@
 
 \newcommand*{\bina}[1]{\texttt{#1}}
 \newcommand*{\hex}[1]{\texttt{#1}}
-\newcommand*{\funcname}[1]{\texttt{#1}}
 \newcommand*{\code}[1]{\texttt{#1}}
 \newcommand*{\bor}{\mathbin{|}}
 \DeclareMathOperator{\modu}{\mathbin{\%}}
@@ -21,7 +20,15 @@
 \newcommand*{\blshift}{\ll}
 \newcommand*{\lxor}{\oplus}
 
-% Modifies subsubsection commands to add \FloatBarriors there too
+% Modifies subsection and subsubsection commands to add \FloatBarriors there tooo
+\AtBeginDocument{%
+     \expandafter\renewcommand\expandafter\subsection\expandafter
+       {\expandafter\@fb@subsecFB\subsection}%
+     \newcommand\@fb@subsecFB{\FloatBarrier
+     \gdef\@fb@afterHHook{\@fb@topbarrier \gdef\@fb@afterHHook{}}}
+     \g@addto@macro\@afterheading{\@fb@afterHHook}
+     \gdef\@fb@afterHHook{}
+}
 \AtBeginDocument{%
      \expandafter\renewcommand\expandafter\subsubsection\expandafter
        {\expandafter\@fb@subsubsecFB\subsubsection}%

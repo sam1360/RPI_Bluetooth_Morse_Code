@@ -11,8 +11,12 @@
 \label{sec:abstract}
 
 
-% TODO Abstract
-
+This project's goal was to develop a system to send messages to a Raspberry Pi~3 (RPi3) over Bluetooth and translate them to Morse~code.
+The translated message is then transmitted over the RPi3's~GPIO pins to produce a Morse~code message conforming to international Morse~code standards.
+In order to accomplish this, two separate programs were created: one program to send the message (capable of being compiled and run on any device with BlueZ installed), and the other to receive the message on the RPi3.
+Functions used for each discrete step were developed in separate files for reusability.
+A program was also created to test the functionality of each step.
+In the end, the system was fully-functional, able to deliver messages through Bluetooth and translate them into GPIO signals.
 
 
 \section{Design Methodology}
