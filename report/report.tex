@@ -86,7 +86,6 @@ Within the receiving Raspberry Pi 3 bluetoothctl must turn discoverable on, so t
 THe port that the pi recieves on is the first one of the current open connection.
 
 
-% TODO MORSE CODE & Bluetooth Configuration
 % The title of this section might change later
 
 
@@ -177,15 +176,42 @@ The sending component can be handled by a \code{bt-send.c}.
 \section{Results and Analysis}
 \label{sec:results_and_analysis}
 
+\begin{figure}[ht]
+    \centering
+    \includegraphics{img/program_output.png}
+    \caption{The output from the two terminals, on the left is transmit and on the right is receive.}
+    \label{fig:program_output}
+\end{figure}
 
-% TODO Results & Analysis
+\begin{figure}[ht]
+    \centering
+    \includegraphics{img/morse.svg}
+    \caption{An image displaying the conversion from ASCII to dots and dashes.}
+    \label{fig:program_output}
+\end{figure}
 
+As displayed in Figure~\ref(fig:program_output), the program ran as specified.
+The program was required to take input from a user on and then proceed to transmit it over bluetooth to the receiving Raspberry Pi.
+From there the program needs to convert the ASCII text to dots and dashes, which is shown by the output.
+The input and the received value was hey whats up.
+The program translated the code to "**** * -*--   *-- **** *- - ***   **- *--*" as shown in the Figure~\ref(fig:program_output).
+Using the International Morse code Figure~\ref(fig:international_morse_code) it shows that H=****, E=* Y=-*--, W=*--, H=****, A=*-, T=-, S=***, U=**-, and P=*--*.
+This shows that the code is valid for converting characters to morse.
+The UART blink in operation is shown in Figure~\ref(fig:uart_blink), as well as the correct pinout to use when running the application.
 
 \section{Conclusions}
 \label{sec:conclusions}
 
-
-% TODO Conclusions
+The objective to connect two Raspberry Pi's together and have them communicate via bluetooth was successful.
+On top of that it was successful in converting from ASCII to morse code and then blinking it by using a GPIO pin to switch the output from low to high.
+There are numerous applications for bluetooth espicially with the prevalence of IoT's connected devices.
+With bluetooth it allows people to connect more and more devices to either their phone or computer, and get data or control different parts of a system remotely.
+This is an industry that is only just starting to take off, things like watches are becoming more and more connected due to the use of bluetooth connectivity.
+The main issues that were encountered during the creation of this project included getting bluetooth working, the initial configuration of the Raspberry Pis, and conflicting schedules.
+Bluetooth was solved by using resources online as well as just struggling through until the Pis connected to one another.
+The configuration was solved in a similar way, mostly trial and web resources to get it running.
+Regarding conflicting schedules, this was resolved by a really long weeked when we both finally had time to get together and work on the code.
+If we were to do it over again, we would either try to find more time to meet, or pass off the Raspberry Pis to one another when one of us had free time to work on it.
 
 
 \section{Source}
