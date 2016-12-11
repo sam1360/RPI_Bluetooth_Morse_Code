@@ -208,6 +208,15 @@ If we represent the next portion of the Morse~code-translated input as a transit
 
 
 This state machine represents the effective results of the program as it goes from accepting input to translating into Morse to interpreting the translated output.
+To interpret the translated output, an additional parameter can be added to the structs in the table.
+Each tick needed to produce a symbol can be represented in a binary code which is stored in the struct.
+For example, the letter ``S'' would provide the code ``\textbullet{} \textbullet{} \textbullet{}'' which becomes \bina{10101}, or \hex{0x15} in hex.
+Then, an algorithm to blink the letter would traverse this binary code in bitwise fashion to blink on and off for the correct amount of time.
+After printing the letter, the algorithm would then force the LED to blink off for 3 ticks, and an additional 4 ticks if it has reached the end of the word.
+
+
+Including the conversion operation from Algorithm~\ref{alg:get_codes_from_input} and details for bitwise traversal, following this procedure would create the pseudocode shown in Algorithm~\ref{alg:blink_signal_from_input}.
+Implementing that algorithm fully converts user input into Morse~code signals through the selected GPIO pin, thus accomplishing the goal of the system as a whole.
 
 
 \begin{algorithm}[ht]
