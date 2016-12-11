@@ -50,7 +50,7 @@ With the receiving RPi3 utilizing the previously determined parameters (output o
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=1\textwidth]{img/receive-gpio.png}
+    \includegraphics[scale=0.5]{img/receive-gpio.png}
     \caption{The GPIO pin layout on the receiving RPi3.}
     \label{fig:receive-gpio}
 \end{figure}
@@ -65,15 +65,19 @@ Although, for the purposes of this lab, another RPi3 will be used as the sending
 \subsection{Morse Code \& Bluetooth Configuration}
 \label{sub:morse_code_&_bluetooth_configuration}
 
-Morse code was developed by Samuel F.B. Morse, Joseph Henry, and Alfred Vail developed morse code starting in 1836.
-The first time Morse was used it worked by making indents on a strip of paper when the machine received electric current.
-Morse had intended to only support numbers and then look each word up via a dictionary that mapped each number to a work.
-Shortly after that was introduced however Alfred Vail expanded this to include both special characters and letters.
-This made Morse code take off due to the fact that it was much easeir to translate.
+
+Morse~code was developed by Samuel F.~B. Morse, Joseph Henry,~and Alfred Vail in 1836.
+The first time Morse was used, it worked by making indents on a strip of paper when the machine received electric current.
+Originally, Morse had intended to only support numbers through the code; each number would correspond to a word, which could be retrieved by dictionary.
+However, shortly after that was introduced, Alfred Vail expanded this standard to include both special characters and letters.
+This made Morse~code take off due to the fact that it was much easier to translate.
 Vail used frequency analysis to assign dots and dashes to the letters.
 
-The Morse code specifies that a dot "." is a one unit, a dash "-" is a 3 units, in between each dot and dash is a 1 unit break, the space at the end of each letter is 3 units, and the break at the end of each word is 7 units.
-The reason for specifying the time length as units is due to the fact that the breaks do no have and specified length, its relative to the speed at which the operator can send and receive messages.
+
+The international Morse~code standard specifies the following regarding time lengths: a dot ``\mcdot'' is 1 time unit and a dash ``\mcdash'' is 3 time units.
+In between each dot and dash is a 1 unit break, the space at the end of each letter is a break of 3 units, and the end of each word is indicated by a 7 unit break.
+The reason for specifying the time length as units is due to the fact that the breaks do not have any specified length.
+This means they can be relative to the speed at which the operator can send and receive messages.
 
 
 The bluetooth connection is done using RFCOMM communication protocol.
@@ -205,7 +209,7 @@ If we represent the next portion of the Morse~code-translated input as a transit
 This state machine represents the effective results of the program as it goes from accepting input to translating into Morse to interpreting the translated output.
 To interpret the translated output, an additional parameter can be added to the structs in the table.
 Each tick needed to produce a symbol can be represented in a binary code which is stored in the struct.
-For example, the letter ``S'' would provide the code ``\textbullet{} \textbullet{} \textbullet{}'' which becomes \bina{10101}, or \hex{0x15} in hex.
+For example, the letter ``S'' would provide the code ``\mcdot{} \mcdot{} \mcdot{}'' which becomes \bina{10101}, or \hex{0x15} in hex.
 Then, an algorithm to blink the letter would traverse this binary code in bitwise fashion to blink on and off for the correct amount of time.
 After printing the letter, the algorithm would then force the LED to blink off for 3 ticks, and an additional 4 ticks if it has reached the end of the word.
 
@@ -270,8 +274,8 @@ As displayed in Figure~\ref{fig:program_output}, the program ran as specified.
 The program was required to take input from a user on and then proceed to transmit it over bluetooth to the receiving Raspberry Pi.
 From there the program needs to convert the ASCII text to dots and dashes, which is shown by the output.
 The input and the received value was ``hey whats up''.
-The program translated the code to ``**** * -*--   *-- **** *- - ***   **- *--*'' as shown in the Figure~\ref{fig:program_output}.
-Using the International Morse code from Figure~\ref{fig:international_morse_code}, we find H=****, E=* Y=-*--, W=*--, H=****, A=*-, T=-, S=***, U=**-, and P=*--*.
+The program translated the code to ``\mcdot{}\mcdot{}\mcdot{}\mcdot{} \mcdot{} \mcdash{}\mcdot{}\mcdash{}\mcdash{}   \mcdot{}\mcdash{}\mcdash{} \mcdot{}\mcdot{}\mcdot{}\mcdot{} \mcdot{}\mcdash{} \mcdash{} \mcdot{}\mcdot{}\mcdot{}   \mcdot{}\mcdot{}\mcdash{} \mcdot{}\mcdash{}\mcdash{}\mcdot{}'' as shown in the Figure~\ref{fig:program_output}.
+Using the International Morse code from Figure~\ref{fig:international_morse_code}, we find H=\mcdot{}\mcdot{}\mcdot{}\mcdot{}, E=\mcdot{} Y=\mcdash{}\mcdot{}\mcdash{}\mcdash{}, W=\mcdot{}\mcdash{}\mcdash{}, H=\mcdot{}\mcdot{}\mcdot{}\mcdot{}, A=\mcdot{}\mcdash{}, T=\mcdash{}, S=\mcdot{}\mcdot{}\mcdot{}, U=\mcdot{}\mcdot{}\mcdash{}, and P=\mcdot{}\mcdash{}\mcdash{}\mcdot{}.
 This shows that the code is valid for converting characters to Morse.
 The UART blink in operation is shown in Figure~\ref{fig:uart_blink}, as well as the correct pinout to use when running the application.
 
